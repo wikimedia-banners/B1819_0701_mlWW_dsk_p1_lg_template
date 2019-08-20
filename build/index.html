@@ -1,5 +1,5 @@
 
- <!-- CREATED AT: 2019-08-20T02:14:03+00:00 -->
+ <!-- CREATED AT: 2019-08-20T02:14:08+00:00 -->
 
 <style>
 /* Hide when editing */
@@ -1596,6 +1596,76 @@ button.frb-submit.active:hover {
 /* Module: Upsell */
     
 
+
+
+/* Module: Shaking effect height on: Tue Aug 20 2019 02:14:08 GMT+0000 (UTC) */
+.shake {
+    animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+    transform: translate3d(0, 0, 0);
+}
+
+/* Keyframes shake moz */
+@-moz-keyframes shake {
+    10%, 90% {
+        -moz-transform: translate3d(-1px, 0, 0);
+    }
+
+    20%, 80% {
+        -moz-transform: translate3d(2px, 0, 0);
+    }
+
+    30%, 50%, 70% {
+        -moz-transform: translate3d(-4px, 0, 0);
+    }
+
+    40%, 60% {
+        -moz-transform: translate3d(4px, 0, 0);
+    }
+}
+
+/* Keyframes shake webkit */
+@-webkit-keyframes shake {
+    10%, 90% {
+        -webkit-transform: translate3d(-1px, 0, 0);
+    }
+
+    20%, 80% {
+        -webkit-transform: translate3d(2px, 0, 0);
+    }
+
+    30%, 50%, 70% {
+        -webkit-transform: translate3d(-4px, 0, 0);
+    }
+
+    40%, 60% {
+        -webkit-transform: translate3d(4px, 0, 0);
+    }
+}
+
+/* Keyframes shake moz */
+@keyframes shake {
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+    20%,
+    80% {
+        transform: translate3d(2px, 0, 0);
+    }
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+    40%,
+    60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}
+
+/* Module: Shaking effect */
+    
+
 </style>
 
 
@@ -1873,8 +1943,8 @@ button.frb-submit.active:hover {
 </div>
 
 <script>
-// {# 'upsell' #}
-// {# 'shakingEffect' #}
+// // {# 'upsell' #}
+// // {# 'shakingEffect' #}
 var frb = frb || {};
 
 frb.show = function() {
@@ -2078,6 +2148,34 @@ frb.rml = {
     
 
 $(function() {
+	
+    // DOM event of shaking effect: Handle .frb-submit of first step
+    $('#continue-btn').on('click', function() {
+      // Amounts validation
+      if (!frb.validateAmount() ) {
+        $('.frb-amounts').addClass('shake');
+        setTimeout(function() {
+            $('.frb-amounts').removeClass('shake');
+        }, 1000);
+      }
+
+      // Optin validation
+      if($('.frb-error-optin').is(':visible')) {
+        $('.frb-optin').addClass('shake');
+        setTimeout(function() {
+            $('.frb-optin').removeClass('shake');
+        }, 1000);
+      }
+
+      // Methods validation
+      if ($('input[name="frb-methods"]:checked').length !== 1) {
+        $('.frb-methods').addClass('shake');
+        setTimeout(function() {
+            $('.frb-methods').removeClass('shake');
+        }, 1000);
+      }
+    })
+    
     var language = mw.centralNotice.data.uselang;
     var country  = mw.centralNotice.data.country;
     var currency = frb.getCurrency(country);
